@@ -22,9 +22,10 @@ body {
 
 .game {
     background-color: #fff;
-    width: 60%;
+    width: 50%;
     height: 75%;
     border-radius: 20px;
+    
 }
 
 .game__timer {
@@ -34,18 +35,11 @@ body {
     border: 1px solid #000;
 }
 
-.dolls-container {
+#dolls-container {
     width: 100%;
     height: 100%;
 }
 
 .dolls {
-    width: 100px;
+    width: 60px;
 }
-
-/* .joystick {
-    width: 60%;
-    height: 15%;
-    margin-top: 20px;
-    background-color: #fff;
-} */
