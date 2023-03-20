@@ -7,47 +7,116 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(-45deg, #E2E2E2, #C9D6FF);
+    background-color: #a3d8d1;
 }
 
-.claw-icon {
-    width: 100px;
-    position: absolute;
-    bottom: 350px;
-    margin: 0 5px;
-}
 
 .game {
-    width: 800px;
-    height: 550px;
+    width: 700px;
+    height: 600px;
 
     background-color: #fff;
-    border-radius: 20px;
 
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
+    background-color: #ebf4f8;
+    border: 8px solid #1b1464;
+    z-index: 2;
+
     overflow: hidden;
 }
 
-.dolls-container {
-    width: 100%;
-    height: 170px;
-    bottom: 0;
-
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
-    justify-content: flex-start;
+.game-back {
+    width: 770px;
+    height: 90%;
     position: absolute;
-    align-content: space-around;
-    align-items: stretch;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1bbfa0;
+    z-index: 1;
+    border: 8px solid #1b1464;
+    
+}
+
+.timer-wrapper {
+    position: relative;
+}
+
+.timer {
+    background-color: #14ceae;
+    border: 8px solid #1b1464;
+    border-radius: 10px;
+    width: 830px;
+    height: 85px;
+    position: absolute;
+    left: 50%;
+    top: 80px;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.timer-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 750px;
+    height: 44px;
+    border: 8px solid #1b1464;
+    border-radius: 10px;
+    background-color: #ddc643;
+    
+    animation: timer 30s linear;
+    animation-fill-mode: forwards;
 }
 
 .doll {
-    display: inline-block;
-    position: relative;
+    width: 60px;
     margin: 2px;
 }
+
+.alarm {
+    width: 50px;
+}
+
+.game__dolls-container {
+    display: flex; 
+    flex-wrap: wrap; 
+    flex-direction: column;
+    justify-content: flex-end; 
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+
+.game__crane {
+    position: absolute;
+    width: 100px;
+    margin: 0 5px;
+    bottom: 400px;
+    left: 50%;
+    right: 0;
+    transform: translateX(-50%);
+    animation: crane-move 2s ease-in-out infinite;
+}
+
+@keyframes crane-move {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 0;
+    }
+  }
