@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+
 // 인형 이미지 생성
 const dolls = [
   { src: 'img/bomb.png', point: -50 },
@@ -25,26 +26,84 @@ function drawDoll(x, y, src, height, padding) {
   };
 }
 
-// 인형 배치
-function placeDolls(count, padding) {
-  const containerWidth = canvas.width;
-  const containerHeight = canvas.height;
-  const dollHeight = 120;
-  const dollWidth = 80; // 인형의 너비
+placeDolls(35, 15); // 인형 배치 함수 호출
 
-  // 인형 간격 계산
-  const dollsPerRow = Math.floor(containerWidth / (dollWidth * 1.5 + padding)); // 인형의 너비를 이용하여 간격 계산
+function placeDolls(count, padding) {
+  const containerWidth = canvas.width; // 캔버스 너비
+  const containerHeight = canvas.height; // 캔버스 높이
+  const dollHeight = 120; // 인형 높이
+  const dollWidth = 80; // 인형 너비
+
+  // 한 줄에 배치할 인형의 수 계산
+  const dollsPerRow = Math.floor(containerWidth / (dollWidth * 1.5 + padding));
+
+  // 필요한 줄 수 계산
   const rowCount = Math.ceil(count / dollsPerRow);
+
+  // 인형들 사이의 간격 계산
   const space = (containerWidth - dollsPerRow * dollWidth * 1.5 - (dollsPerRow - 1) * padding) / 2;
 
+  // 인형 배치
   for (let i = 0; i < count; i++) {
-    const row = Math.floor(i / dollsPerRow);
-    const col = i % dollsPerRow;
-    const x = space + col * (dollWidth * 1.5 + padding);
-    const y = containerHeight - (row + 1) * (dollHeight + padding);
-    const randomDoll = dolls[Math.floor(Math.random() * dolls.length)];
-    drawDoll(x, y, randomDoll.src, dollHeight, padding);
+    const row = Math.floor(i / dollsPerRow); // 현재 인형이 속한 줄
+    const col = i % dollsPerRow; // 현재 인형이 속한 열
+    const x = space + col * (dollWidth * 1.5 + padding); // 인형 x 좌표
+    const y = containerHeight - (row + 1) * (dollHeight + padding); // 인형 y 좌표
+    const randomDoll = dolls[Math.floor(Math.random() * dolls.length)]; // 랜덤 인형 선택
+    drawDoll(x, y, randomDoll.src, dollHeight, padding); // 인형 그리기
   }
 }
 
-placeDolls(33, 15);
+const craneImage = new Image();
+craneImage.src = '/img/claw.png';
+
+// game__crane 이미지의 초기 위치값
+let craneX = 0;
+let craneY = -700;
+
+// 키보드 이벤트 리스너 추가
+let dx = 0;
+let dy = 0;
+
+document.addEventListener('keydown', function(event) {
+  switch (event.keyCode) {
+    case 37: // 왼쪽 화살표
+      dx = -10;
+      break;
+    case 39: // 오른쪽 화살표
+      dx = 10;
+      break;
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  switch (event.keyCode) {
+    case 37: // 왼쪽 화살표
+    case 39: // 오른쪽 화살표
+      dx = 0;
+      break;
+  }
+});
+
+function moveCrane() {
+
+  ctx.clearRect(craneX, craneY, 200, 1100);
+  craneX += dx;
+  craneY += dy;
+
+  // 화면 밖으로 나가지 않도록 제한
+  if (craneX < 0) craneX = 0;
+  if (craneX > canvas.width - 200) craneX = canvas.width - 200;
+  if (craneY < -1000) craneY = -1000;
+  if (craneY > 0) craneY = 0;
+  // 크레인 이미지 그리기
+  ctx.drawImage(craneImage, craneX, craneY, 200, 1100);
+
+  // 다음 프레임을 그리기 위해 requestAnimationFrame 호출
+  requestAnimationFrame(moveCrane);
+}
+
+// 크레인 이미지 로드 후에 moveCrane 함수 호출
+craneImage.onload = function() {
+  moveCrane();
+};
