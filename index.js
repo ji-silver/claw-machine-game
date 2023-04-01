@@ -54,7 +54,7 @@ function placeDolls(count, padding) {
 }
 
 const craneImage = new Image();
-craneImage.src = "/img/claw.png";
+craneImage.src = "./img/crane.png";
 
 // game__crane 이미지의 초기 위치값
 let craneX = 0;
