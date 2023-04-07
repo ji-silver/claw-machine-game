@@ -1,6 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+const scoreDisplay = document.querySelector(".score_point");
+
 const dolls = [
   { src: "img/bomb.png", point: -50 },
   { src: "img/doll1.png", point: 10 },
@@ -14,15 +16,22 @@ const dollData = [];
 
 function drawDolls() {
   dollData.forEach(function (doll) {
-    const dollImage = new Image();
-    dollImage.src = doll.src;
-    const ratio = dollImage.width / dollImage.height;
-    const width = doll.height * ratio;
-    ctx.save();
-    ctx.translate(doll.x + width / 2, doll.y + doll.height / 2);
-    ctx.rotate((doll.angle * Math.PI) / 180);
-    ctx.drawImage(dollImage, -width / 2, -doll.height / 2, width, doll.height);
-    ctx.restore();
+    if (doll.loaded) {
+      const dollImage = doll.image;
+      const ratio = dollImage.width / dollImage.height;
+      const width = doll.height * ratio;
+      ctx.save();
+      ctx.translate(doll.x + width / 2, doll.y + doll.height / 2);
+      ctx.rotate((doll.angle * Math.PI) / 180);
+      ctx.drawImage(
+        dollImage,
+        -width / 2,
+        -doll.height / 2,
+        width,
+        doll.height
+      );
+      ctx.restore();
+    }
   });
 }
 
@@ -46,16 +55,9 @@ function placeDolls(count, padding) {
     const randomDoll = dolls[Math.floor(Math.random() * dolls.length)];
     const angle = Math.random() * 360;
     const dollImage = new Image();
-    dollImage.src = randomDoll.src;
     dollImage.onload = function () {
       const ratio = dollImage.width / dollImage.height;
       const width = dollHeight * ratio;
-      ctx.save();
-      ctx.translate(x + width / 2, y + dollHeight / 2);
-      ctx.rotate((angle * Math.PI) / 180);
-      ctx.drawImage(dollImage, -width / 2, -dollHeight / 2, width, dollHeight);
-      ctx.restore();
-
       const doll = {
         x: x,
         y: y,
@@ -64,9 +66,12 @@ function placeDolls(count, padding) {
         point: randomDoll.point, // 인형의 point 값을 추가
         height: dollHeight,
         padding: padding,
+        image: dollImage,
+        loaded: true,
       };
       dollData.push(doll);
     };
+    dollImage.src = randomDoll.src;
   }
 }
 
@@ -87,58 +92,71 @@ const craneHeight = targetHeight;
 let isMovingDown = false;
 const speed = 10;
 
+let totalPoints = 0;
+
 craneImage.onload = function () {
-  ctx.drawImage(craneImage, craneX, craneY, craneWidth, craneHeight);
+  draw();
+  animate();
 };
 
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawDolls();
+  ctx.drawImage(craneImage, craneX, craneY, craneWidth, craneHeight);
+}
+
+function animate() {
+  draw();
+  requestAnimationFrame(animate);
+}
+
 document.addEventListener("keydown", function (event) {
-  switch (event.code) {
-    case "ArrowLeft":
+  switch (event.keyCode) {
+    case 37: // Left arrow key
       craneX = Math.max(craneX - 10, 0);
       break;
-    case "ArrowRight":
+    case 39: // Right arrow key
       craneX = Math.min(craneX + 10, canvas.width - craneWidth);
       break;
-    case "Space":
+    case 32: // Spacebar key
       if (!isMovingDown) {
         isMovingDown = true;
         moveDown();
       }
       break;
   }
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawDolls();
-  ctx.drawImage(craneImage, craneX, craneY, craneWidth, craneHeight);
 });
+function updateScoreDisplay() {
+  scoreDisplay.textContent = totalPoints;
+}
 
 function moveDown() {
   if (craneY + craneHeight < canvas.height) {
     craneY += speed;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawDolls();
-    ctx.drawImage(craneImage, craneX, craneY, craneWidth, craneHeight);
+    draw();
     requestAnimationFrame(moveDown);
   } else {
     isMovingDown = false;
-    const selectedDoll = dollData.find((doll) => {
-      return (
+    const selectedDoll = dollData.find(
+      (doll) =>
         craneX + craneWidth / 2 >= doll.x &&
         craneX + craneWidth / 2 <= doll.x + doll.height &&
         craneY + craneHeight >= doll.y
-      );
-    });
+    );
     if (selectedDoll) {
-      const index = dollData.indexOf(selectedDoll);
-      dollData.splice(index, 1);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawDolls();
-      ctx.drawImage(craneImage, craneX, craneY, craneWidth, craneHeight);
-      console.log(
-        `You got ${selectedDoll.src} for ${selectedDoll.point} points!`
-      );
-    } else {
-      console.log("You missed!");
+      dollData.splice(dollData.indexOf(selectedDoll), 1);
+      totalPoints += selectedDoll.point;
+      updateScoreDisplay();
+      moveUp();
+      return;
     }
+  }
+}
+
+function moveUp() {
+  if (craneY > -1400) {
+    craneY -= speed;
+    draw();
+    requestAnimationFrame(moveUp);
   }
 }
