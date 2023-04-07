@@ -8,6 +8,7 @@
 body {
     height: 100vh;
     background-color: #a3d8d1;
+    position: relative;
 }
 
 #canvas {
@@ -44,6 +45,25 @@ body {
     border: 8px solid #1b1464;
 
 }
+
+.score {
+    background-color: #fff;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    margin-right: 70px;
+    border-radius: 15px;
+    border: 8px solid #1b1464;
+    box-sizing: content-box;
+    text-align: center;
+}
+
+.score_point {
+    line-height: 50px;
+}
+
 
 .timer-wrapper {
     position: relative;
