@@ -122,10 +122,14 @@ document.addEventListener("keydown", function (event) {
       if (!isMovingDown) {
         isMovingDown = true;
         moveDown();
+      } else {
+        // If crane is already moving down, ignore the key press
+        return;
       }
       break;
   }
 });
+
 function updateScoreDisplay() {
   scoreDisplay.textContent = totalPoints;
 }
@@ -136,7 +140,7 @@ function moveDown() {
     draw();
     requestAnimationFrame(moveDown);
   } else {
-    isMovingDown = false;
+    stopMoving();
     const selectedDoll = dollData.find(
       (doll) =>
         craneX + craneWidth / 2 >= doll.x &&
@@ -148,7 +152,8 @@ function moveDown() {
       totalPoints += selectedDoll.point;
       updateScoreDisplay();
       moveUp();
-      return;
+    } else {
+      moveUp();
     }
   }
 }
@@ -158,5 +163,11 @@ function moveUp() {
     craneY -= speed;
     draw();
     requestAnimationFrame(moveUp);
+  } else {
+    stopMoving();
   }
+}
+
+function stopMoving() {
+  isMovingDown = false;
 }
