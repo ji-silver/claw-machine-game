@@ -63,7 +63,7 @@ function placeDolls(count, padding) {
         y: y,
         angle: angle,
         src: randomDoll.src,
-        point: randomDoll.point, // 인형의 point 값을 추가
+        point: randomDoll.point,
         height: dollHeight,
         padding: padding,
         image: dollImage,
@@ -138,9 +138,6 @@ function moveDown() {
   if (craneY + craneHeight < canvas.height) {
     craneY += speed;
     draw();
-    requestAnimationFrame(moveDown);
-  } else {
-    stopMoving();
     const selectedDoll = dollData.find(
       (doll) =>
         craneX + craneWidth / 2 >= doll.x &&
@@ -148,13 +145,18 @@ function moveDown() {
         craneY + craneHeight >= doll.y
     );
     if (selectedDoll) {
+      stopMoving();
       dollData.splice(dollData.indexOf(selectedDoll), 1);
       totalPoints += selectedDoll.point;
       updateScoreDisplay();
       moveUp();
-    } else {
-      moveUp();
+      return;
     }
+    requestAnimationFrame(moveDown);
+  } else {
+    isMovingDown = false;
+    stopMoving();
+    moveUp();
   }
 }
 
