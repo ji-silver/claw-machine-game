@@ -1,10 +1,8 @@
-//
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const scoreDisplay = document.querySelector(".score_point");
 
-//게임에 배치할 인형 정보를 객체 배열로 불러오기
 const dolls = [
   { src: "img/bomb.png", point: -50 },
   { src: "img/doll1.png", point: 10 },
@@ -14,7 +12,6 @@ const dolls = [
 
 const dollData = [];
 
-//캔버스에 인형 그리기
 function drawDolls() {
   dollData.forEach(function (doll) {
     if (doll.loaded) {
@@ -36,14 +33,13 @@ function drawDolls() {
   });
 }
 
-//인형 배치하기
 function placeDolls(count, padding) {
   const containerWidth = canvas.width;
   const containerHeight = canvas.height;
-  const dollHeight = 150;
-  const dollWidth = 110;
+  const dollHeight = 120;
+  const dollWidth = 80;
   const dollsPerRow = Math.floor(containerWidth / (dollWidth * 1.5 + padding));
-  const rowCount = Math.ceil(count / dollsPerRow); // 행 개수 정하기
+  const rowCount = Math.ceil(count / dollsPerRow);
   const space =
     (containerWidth -
       dollsPerRow * dollWidth * 1.5 -
@@ -54,8 +50,8 @@ function placeDolls(count, padding) {
     const col = i % dollsPerRow;
     const x = space + col * (dollWidth * 1.5 + padding);
     const y = containerHeight - (row + 1) * (dollHeight + padding);
-    const randomDoll = dolls[Math.floor(Math.random() * dolls.length)]; // 인형 랜덤 배치
-    const angle = Math.random() * 360; // 랜덤 각도
+    const randomDoll = dolls[Math.floor(Math.random() * dolls.length)];
+    const angle = Math.random() * 360;
     const dollImage = new Image();
     dollImage.onload = function () {
       const ratio = dollImage.width / dollImage.height;
@@ -71,14 +67,14 @@ function placeDolls(count, padding) {
         image: dollImage,
         loaded: true,
       };
-      dollData.push(doll); // 배치되는 인형의 위치, 이미지, 각도, 점수 등의 정보를 담은 객체를 dollData 배열에 추가 (캔버스 초기화로 인해 초깃값 저장)
+      dollData.push(doll);
     };
     dollImage.src = randomDoll.src;
   }
 }
 
 // 인형 배치하기 (인형 개수, padding 값)
-placeDolls(14, 15);
+placeDolls(24, 15);
 
 console.log(dollData);
 
@@ -86,6 +82,7 @@ const craneImage = new Image();
 craneImage.src = "./img/crane.png";
 
 const targetWidth = 200;
+
 const aspectRatio = craneImage.naturalWidth / craneImage.naturalHeight;
 const targetHeight = targetWidth / aspectRatio;
 
