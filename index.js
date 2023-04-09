@@ -1,8 +1,10 @@
+// canvas요소로 인형, 크레인 화면에 그리기
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const scoreDisplay = document.querySelector(".score_point");
 
+// dolls 배열 객체에 뽑을 수 있는 인형 종류와 점수 정의
 const dolls = [
   { src: "img/bomb.png", point: -50 },
   { src: "img/doll1.png", point: 10 },
@@ -12,6 +14,7 @@ const dolls = [
 
 const dollData = [];
 
+// 인형 그리기
 function drawDolls() {
   dollData.forEach(function (doll) {
     if (doll.loaded) {
@@ -33,6 +36,7 @@ function drawDolls() {
   });
 }
 
+// 인형 배치하기
 function placeDolls(count, padding) {
   const containerWidth = canvas.width;
   const containerHeight = canvas.height;
@@ -67,7 +71,7 @@ function placeDolls(count, padding) {
         image: dollImage,
         loaded: true,
       };
-      dollData.push(doll);
+      dollData.push(doll); // 캔버스 초기화 시 초깃값 인형 정보 그대로 그리기
     };
     dollImage.src = randomDoll.src;
   }
@@ -97,7 +101,6 @@ const speed = 10;
 let totalPoints = 0;
 
 craneImage.onload = function () {
-  draw();
   animate();
 };
 
@@ -110,6 +113,7 @@ function draw() {
 let isMovingLeft = false;
 let isMovingRight = false;
 
+// 키보드로 크레인 조작하기
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "ArrowLeft":
@@ -123,7 +127,6 @@ document.addEventListener("keydown", function (event) {
         isMovingDown = true;
         moveDown();
       } else {
-        // If crane is already moving down, ignore the key press
         return;
       }
       break;
@@ -131,6 +134,7 @@ document.addEventListener("keydown", function (event) {
 });
 
 function animate() {
+  draw();
   requestAnimationFrame(animate);
   if (isMovingLeft) {
     craneX = Math.max(craneX - 10, 0);
@@ -138,7 +142,6 @@ function animate() {
   if (isMovingRight) {
     craneX = Math.min(craneX + 10, canvas.width - craneWidth);
   }
-  draw();
 }
 
 document.addEventListener("keyup", function (event) {
@@ -156,6 +159,7 @@ function updateScoreDisplay() {
   scoreDisplay.textContent = totalPoints;
 }
 
+// 크레인 내려올 때 처리
 function moveDown() {
   if (craneY + craneHeight < canvas.height) {
     craneY += speed;
