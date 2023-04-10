@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>인형뽑기</title>
-    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="/css/index.css" /> -->
+    <link rel="stylesheet" href="public/css/index.css" />
 </head>
-
 <body>
-    <div class="timer-wrapper">
-        <div class="timer">
-            <div class="timer-bar"></div>
+    <div class="modal">
+        <div class="modal_box">
+            <h1 class="modal_txt">🕹️ 게임 방법 🕹️</h1>
+            <p class="modal_desc">
+                키보드로 크레인을 조작해서 원하는 인형을 뽑을 수 있어요<br/>
+                각 인형의 점수를 기억하고 제한 시간 안에 얼마나 많은 점수를 획득하는지<br/>
+                게임해 보세요!
+            </p>
         </div>
     </div>
-    <div class="game">
-        <canvas id="canvas" width="1400" height="1200"></canvas>
+    <div class="start active">
+        <h1 class="start_title">인형 뽑기</h1>
+        <button class="start_btn rule">?</button>
+        <button class="start_btn"><a href="/game.html">Start</a></button>
     </div>
-    <div class="game-back"></div>
-    <div class="score">
-        <h2 class="score__title">🧸 SCORE 🧸</h2>
-        <h1 class="score_point">0</h1>
-    </div>
-    <script src="index.js"></script>
 </body>
-
 </html>

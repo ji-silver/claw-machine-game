@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+@font-face {
+    font-family: 'EliceDigitalBaeum_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EliceDigitalBaeum_Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+#canvas {
+    position: relative;
+    width: 700px;
+    height: 600px;
+}
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #a3d8d1;
+    position: relative;
+}
+
+button {
+    overflow : visible;
+    margin : 0;
+    padding : 0;
+    border : 0;
+    background : transparent;
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* intro */
+.modal {
+    width: 700px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: none;
+}
+
+.modal_box {
+    width: 100%;
+    height: 100%;
+    background: #b8b8b8;
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+}
+/* 
+.rule:hover .modal {
+    display: flex;
+} */
+
+.modal_txt {
+}
+
+.modal_desc {
+    padding-top: 30px;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.start {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.start_title {
+    color: #000;
+    font-size: 3rem;
+    font-family: 'EliceDigitalBaeum_Bold';
+}
+
+.start_btn {
+    display: block;
+	position: relative;
+	width: 200px;
+	height: 80px;
+	color: white;
+	font-size: 30px;
+	text-transform: uppercase;
+	background-color: #06C1DE;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 24px;
+	box-sizing: border-box;
+	font-family: 'Press Start 2P', cursive;
+	outline: none;
+}
+
+
+.start_btn::after {
+	content: "";
+	position: absolute;
+	width: 200px;
+	height: 80px;
+	top: 12px;
+	left: 0;
+	background-color: #047E91;
+	border-radius: 24px;
+	z-index: -1;
+}
+
+.start_btn:hover {
+	background-color: #06B6D1;
+}
+
+.start_btn:active {
+	top: 10px;
+}
+
+.start_btn:active::after {
+	top: 2px;
+}
+
+
+/* game */
+.game_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.game {
+    width: 700px;
+    height: 600px;
+    background-color: #fff;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ebf4f8;
+    border: 8px solid #1b1464;
+    z-index: 2;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+.game-back {
+    width: 770px;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1bbfa0;
+    z-index: 1;
+    border: 8px solid #1b1464;
+
+}
+
+.score {
+    background-color: #fff;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    margin-right: 5%;
+    border-radius: 15px;
+    border: 8px solid #1b1464;
+    box-sizing: content-box;
+    text-align: center;
+    
+}
+
+.score__title {
+    font-family: 'EliceDigitalBaeum_Bold';
+    letter-spacing: 2px;
+}
+
+.score_point {
+    line-height: 50px;
+}
+
+
+.timer-wrapper {
+    position: relative;
+  }
+  
+  .timer {
+    position: absolute;
+    top: 3vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 830px;
+    height: 85px;
+    border: 8px solid #1b1464;
+    border-radius: 10px;
+    background-color: #14ceae;
+    z-index: 3;
+  }
+  
+  .timer-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 750px;
+    height: 30px;
+    border: 8px solid #1b1464;
+    border-radius: 10px;
+    background-color: #ebf4f8;
+    box-sizing: content-box;
+    overflow: hidden;
+  }
+  
+  .timer-bar__fill {
+    width: 100%;
+    height: 100%;
+    background-color: #ddc643;
+    animation: timer-bar-fill 30s linear forwards;
+  }
+  
+  @keyframes timer-bar-fill {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0;
+    }
+  }
