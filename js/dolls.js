@@ -2,7 +2,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-import { dollData } from "./index.js";
+import { dollData } from "./crane.js";
 
 //dolls 배열 객체에 뽑을 수 있는 인형 종류와 점수 정의
 export const dolls = [
