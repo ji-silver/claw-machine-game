@@ -128,5 +128,5 @@ export const dollData = [];
 
 setTimeout(() => {
   alert(`총 ${totalPoints}점 획득🎉`);
-  location.href = "./index.html";
+  history.back();
 }, 30000);
