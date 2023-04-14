@@ -3,13 +3,13 @@ const ctx = canvas.getContext("2d");
 
 import { drawDolls, placeDolls } from "./dolls.js";
 
-const scoreDisplay = document.querySelector(".score_point");
+const scoreDisplay = document.querySelector(".score__point");
 
 // console.log(dollData);
 
 // 크레인
 const craneImage = new Image();
-craneImage.src = "/img/crane.png";
+craneImage.src = "../img/crane.png";
 
 const targetWidth = 200;
 const aspectRatio = craneImage.naturalWidth / craneImage.naturalHeight;

@@ -23,7 +23,6 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: #a3d8d1;
     position: relative;
 }
 
@@ -142,26 +141,33 @@ a {
 }
 
 
-/* game */
+
+
+/* game.html */
+.container {
+    position: relative;
+    background-color: #a3d8d1;
+    width: 100%;
+    height: 100%;
+}
+
 .game_container {
     position: relative;
-    width: 100%;
     height: 100%;
 }
 
 .game {
     width: 700px;
     height: 600px;
-    background-color: #fff;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #ebf4f8;
     border: 8px solid #1b1464;
-    z-index: 2;
     overflow: hidden;
     box-sizing: content-box;
+    z-index: 1;
 }
 
 .game-back {
@@ -172,9 +178,7 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1bbfa0;
-    z-index: 1;
     border: 8px solid #1b1464;
-
 }
 
 .score {
@@ -183,13 +187,12 @@ a {
     height: 100px;
     position: absolute;
     top: 20%;
-    right: 0;
-    margin-right: 5%;
+    right: 0%;
+    margin-right: 20px;
     border-radius: 15px;
     border: 8px solid #1b1464;
     box-sizing: content-box;
     text-align: center;
-    
 }
 
 .score__title {
@@ -201,11 +204,6 @@ a {
     line-height: 50px;
 }
 
-
-.timer-wrapper {
-    position: relative;
-  }
-  
   .timer {
     position: absolute;
     top: 3vh;
@@ -216,7 +214,7 @@ a {
     border: 8px solid #1b1464;
     border-radius: 10px;
     background-color: #14ceae;
-    z-index: 3;
+    z-index: 10;
   }
   
   .timer-bar {
@@ -248,3 +246,8 @@ a {
       width: 0;
     }
   }
+
+
+  @media (min-width: 800px) {
+
+  }  
