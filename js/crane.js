@@ -129,4 +129,5 @@ export const dollData = [];
 setTimeout(() => {
   alert(`총 ${totalPoints}점 획득🎉`);
   // history.back();
+  location.reload();
 }, 30000);
