@@ -9,7 +9,7 @@ const scoreDisplay = document.querySelector(".score__point");
 
 // 크레인
 const craneImage = new Image();
-craneImage.src = "../img/crane.png";
+craneImage.src = "./img/crane.png";
 
 const targetWidth = 200;
 const aspectRatio = craneImage.naturalWidth / craneImage.naturalHeight;
